@@ -20,14 +20,11 @@ public class Clock {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-//走秒
-			second.increase();
+			second.increase();// 走秒
 			if (second.getValue() == 0) {
-				// 走分
-				minute.increase();
+				minute.increase();// 走分
 				if (minute.getValue() == 0) {
-					// 走小时
-					hour.increase();
+					hour.increase();// 走小时
 				}
 			}
 			// 输出
@@ -39,7 +36,8 @@ public class Clock {
 	}
 
 	public String toString() {
-		return hour.getValue() + ":" + minute.getValue() + ":" + second.getValue();
+		String str = String.format("%02d:%02d:%02d", hour.getValue(), minute.getValue(), second.getValue());
+		return str;
 	}
 
 	public static void main(String[] args) {
