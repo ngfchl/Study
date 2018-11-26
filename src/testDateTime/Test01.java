@@ -15,36 +15,41 @@ public class Test01 {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println("请输入一个格式化的日期（例如：2018-11-25）：");
-		Scanner scanner = new Scanner(System.in);
-
-		String temp = scanner.nextLine();
-		DateFormat dFormat = new SimpleDateFormat("yyyy-MM-dd");
 		try {
+			System.out.println("请输入一个格式化的日期（例如：2018-11-25）：");
+			Scanner scanner = new Scanner(System.in);
+			String temp = scanner.nextLine();
+			DateFormat dFormat = new SimpleDateFormat("yyyy-MM-dd");
+			// 获取输入的数据
 			Date dDate = dFormat.parse(temp);
 			Calendar calendar1 = new GregorianCalendar();
+			// 设定日期
 			calendar1.setTime(dDate);
+			// 获取当天日期
+			int day = calendar1.get(Calendar.DATE);
+			// 获取本月1号为周几
 			calendar1.set(Calendar.DATE, 1);
-			int a = calendar1.get(Calendar.DAY_OF_WEEK);
-			int b = calendar1.get(Calendar.DATE);
-			int c = calendar1.getActualMaximum(Calendar.DATE);
-			System.out.println(a);
-			System.out.println(c);
-
+			int dayOfWeek = calendar1.get(Calendar.DAY_OF_WEEK);
+			// 获取本月的最大天数
+			int maxDay = calendar1.getActualMaximum(Calendar.DATE);
+			// 打印周
 			System.out.println("日\t一\t二\t三\t四\t五\t六");
-			if ((a - 1) % 7 != 0) {
-				for (int i = 0; i < a - 1; i++) {
+			// 输出1号之前的空格
+			if ((dayOfWeek - 1) % 7 != 0) {
+				for (int i = 0; i < dayOfWeek - 1; i++) {
 					System.out.print("\t");
 				}
 			}
-			for (int i = 1; i <= c; i++) {
-				System.out.print(i + "\t");
-				if(i==b) {
-					System.out.print("*");
-				}
-				
-				if ((i + a - 1) % 7 == 0) {
-					System.out.println();
+			// 打印日历
+			for (int i = 1; i <= maxDay; i++) {
+				// 打印到输入的日期时在日期后面加上星号
+				if (i == day) {
+					System.out.print(i + "*\t");
+					// 打印到星期六就换行
+				} else if ((i + dayOfWeek - 1) % 7 == 0) {
+					System.out.print(i + "\n");
+				} else {
+					System.out.print(i + "\t");
 				}
 			}
 		} catch (ParseException e) {
